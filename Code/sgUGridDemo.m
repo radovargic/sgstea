@@ -16,7 +16,7 @@ function sgUGridDemo
         mySimTimeA   = myProfile.getSimTime(myUgridNameA);
         myConsumerA  = sgConsumer(mySimTimeA,myProfile);
         myElNetworkA = sgElNetwork(mySimTimeA,12,1500);
-        myElNetworkA.reserveCapacity(1018);
+        myElNetworkA.reserveCapacity(1070);
         myBattA      = sgBatteryPowWall(mySimTimeA);
         myBattA.installCap(200);
         %myBattA      = sgBatteryHybrid(mySimTimeA,0,200, 1);

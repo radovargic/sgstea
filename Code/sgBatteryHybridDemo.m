@@ -18,8 +18,8 @@ function sgBatteryHybridDemo
        myTime.tick(myPrintEpochTime);
     end   
     %myBatt.plotAll("Overall",myTime.getLimits());
-    myBatt.plotAll("Detail 1",[0 32]);
-    myBatt.plotAll("Detail 2",[0 256]);
+    myBatt.plotAll("ALG"+myHAlg+", Detail1",[0 256]);
+    myBatt.plotAll("ALG"+myHAlg+", Detail2",[0 32]);
 end
 
 function rProfile=getCombiDemoProfile(obj)

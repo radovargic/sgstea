@@ -43,7 +43,7 @@ classdef sgBatteryHybrid < handle
             rNab=combineNan(FNab,SNab);
             rVyb=combineNan(FVyb,SVyb);
         end
-        function plotNabVyb(obj)
+        function plotNabVyb(obj,vViewName)
             myX=obj.mSimTime.getXAxis();
             myplot=plot(myX,obj.mSimBattRequested,"b","LineWidth",2);myplot.Color(4)=0.5;
             hold on
@@ -55,7 +55,7 @@ classdef sgBatteryHybrid < handle
             scatter(myX,myVyb,40,"o","filled",'MarkerFaceColor',[1 0 1]);
             [myNab,myVyb]=obj.getNabVyp();
             %ylim(1.05*[-obj.mNomPowOut obj.mNomPowIn]);
-            title("Power flow to/from battery")
+            title(sprintf("%s, power flow to/from battery",vViewName));
             grid on;
             xlabel("steps");
             ylabel("[kW]");
@@ -170,11 +170,12 @@ classdef sgBatteryHybrid < handle
             %Fast is Nor Final when Discharging
             FIFD=((obj.mAlgNum==2) || (obj.mAlgNum==3));
                 
-            obj.mBattFast.plotAll(vViewName+" FAST",vXLim,FIFD);
-            obj.mBattSlow.plotAll(vViewName+" SLOW",vXLim,~FIFD);
-            figure;
-            obj.plotNabVyb();
+            obj.mBattFast.plotAll(vViewName+", Hybrid battery, fast part",vXLim,FIFD);
+            obj.mBattSlow.plotAll(vViewName+", Hybrid battery, slow part",vXLim,~FIFD);
+            myFig=figure;
+            obj.plotNabVyb(vViewName);
             xlim(vXLim)
+            sgUtilSaveFig(myFig,"sgBatteryHybrid"+vViewName,[0,0,6,6],200)
         end
     end
 end

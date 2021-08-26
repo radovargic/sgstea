@@ -8,8 +8,8 @@ function sgUGridDemoRcLoopCmp
     myProfile=sgProfile("DNV",'../Data/DNV-optimalizacia.xlsx',3,6);
     
     myMaxRc=myProfile.getMaxProfVal()
-    myMinRc=0;
-    myRcStep=-10;
+    myMinRc=400;
+    myRcStep=-5;
     myRcVec=myMaxRc:myRcStep:myMinRc;
     
     mySimTime    = myProfile.getSimTime("profileTime");
@@ -31,16 +31,17 @@ function sgUGridDemoRcLoopCmp
         hold on
         myplot= plot(myRcVec,myFinesA,"g","LineWidth",2);myplot.Color(4)=0.5;
 %        myplot=plot(myRcVec,myRcPricesB,"--","LineWidth",2);myplot.Color(4)=0.5;
-        myplot=plot(myRcVec,myFinesB,"b--","LineWidth",2);myplot.Color(4)=0.5;
+        myplot=plot(myRcVec,myFinesB,"b:","LineWidth",2);myplot.Color(4)=0.5;
         xlabel("Rc [kW]");
         ylabel("[EUR]");
         grid on
         xlim([myMinRc, myMaxRc])
+        %xlim([myMinRc, myMaxRc])
         legend("RcCosts","Fines FastBatt","Fines SlowBatt");
         title(sprintf("Fines/RcCosts comparison, Battery Capacity=%g [kWh]",myCap));
         myFig.PaperUnits = 'inches';
         myFig.PaperPosition = [0 0 6 3 ];
-        outFname=sprintf("../Results/sgUGridDemoRkLoopCmp%g.png",myCap)
+        outFname=sprintf("../Results/sgUGridDemoRcLoopCmp%g.png",myCap)
         print(myFig,outFname,'-dpng','-r300')
         disp(sprintf("Overall uGrid situation stored as:%s", outFname))
     end

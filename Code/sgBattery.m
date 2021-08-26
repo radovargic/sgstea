@@ -79,7 +79,7 @@ classdef (Abstract) sgBattery < handle  &  matlab.mixin.Heterogeneous
                 end
             end
             myX=obj.mSimTime.getXAxis();
-            myplot=plot(myX,obj.mSimBattLoad/obj.mNomCap*100,"b:","LineWidth",2);myplot.Color(4)=0.75;
+            myplot=plot(myX,obj.mSimBattLoad/obj.mNomCap*100,"b","LineWidth",2);myplot.Color(4)=0.5;
             hold on
             [vInOverRuns,vOutOverRuns,vMaxInOver,vMaxOutOver]=obj.getPowOverruns();
             myplot=area(myX,vInOverRuns,"FaceColor",[0 0.5 0]); myplot.FaceAlpha=0.25;
@@ -103,7 +103,7 @@ classdef (Abstract) sgBattery < handle  &  matlab.mixin.Heterogeneous
                 end
             end
             myX=obj.mSimTime.getXAxis();
-            myplot=plot(myX,obj.mSimBattLoad/obj.mNomCap*100,"b:","LineWidth",2);myplot.Color(4)=0.75;
+            myplot=plot(myX,obj.mSimBattLoad/obj.mNomCap*100,"b","LineWidth",2);myplot.Color(4)=0.5;
             hold on
             [vInOverRuns,vOutOverRuns,vMaxInOver,vMaxOutOver]=obj.getCapOverruns();
             myplot=area(myX,vInOverRuns,"FaceColor",[0 0.5 0]); myplot.FaceAlpha=0.25;
@@ -247,7 +247,7 @@ classdef (Abstract) sgBattery < handle  &  matlab.mixin.Heterogeneous
             myComment="";
             ISFD=0;
             if (nargin>=2)
-                myComment=" ("+varargin{2}+")";
+                myComment=varargin{2};
                 if (nargin>=3)
                     myLim=varargin{3};
                 end
@@ -256,7 +256,7 @@ classdef (Abstract) sgBattery < handle  &  matlab.mixin.Heterogeneous
                 end
             end
             
-            figure
+            myFig=figure;
             subplot(3,1,1)
             obj.plotNabVyb()
             xlim(myLim)
@@ -266,7 +266,8 @@ classdef (Abstract) sgBattery < handle  &  matlab.mixin.Heterogeneous
             subplot(3,1,3)
             obj.plotCapOverruns(ISFD)
             xlim(myLim)
-            sgtitle(sprintf("%s view of PowerWall battery simulation",myComment))
+            sgtitle(sprintf("%s battery simulation",myComment))
+            sgUtilSaveFig(myFig,"sgBattery"+myComment,[0,0,6,6],200)
         end
     end
 end
